@@ -9,6 +9,7 @@
     "eslint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
+    "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "reactcss": "^1.2.2",
