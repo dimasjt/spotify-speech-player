@@ -5,6 +5,7 @@ import SpotifyLogin from '../components/SpotifyLogin';
 
 export default class Main extends Component {
   render() {
+    const isLogin = window.localStorage.getItem('authCode');
     return (
       <div>
         <Speech />

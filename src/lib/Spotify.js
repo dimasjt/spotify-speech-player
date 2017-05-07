@@ -4,7 +4,6 @@ exports.play = (trackName) => {
 
 };
 
-exports.search = async (query) => {
-  const result = await fetcher.get('search');
-  console.log(result);
+exports.search = (query) => {
+  fetcher.get(`search?type=track&q=${query}`);
 };

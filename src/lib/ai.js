@@ -1,6 +1,7 @@
 import regex from './regex';
+import Spotify from './Spotify';
 
-export default function (text) {
+const AI = async (text) => {
   if (regex.playMusic.test(text)) {
     const trackName = text.replace(regex.playMusic, '').trim();
 
@@ -8,6 +9,8 @@ export default function (text) {
       track: trackName,
     };
 
+    const result = await Spotify.search(trackName);
+    console.log('result', result)
     return { action: 'playMusic', payload: payload };
   } else if (regex.stopMusic.test(text)) {
     return { action: 'stopMusic'  };
@@ -17,3 +20,4 @@ export default function (text) {
   }
 };
 
+export default AI;
