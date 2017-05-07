@@ -7,6 +7,7 @@ import path from 'path';
 module.exports = {
   entry: {
     application: [
+      'babel-polyfill',
       path.resolve('src/index.jsx'),
     ],
   },
