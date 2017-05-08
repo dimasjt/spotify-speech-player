@@ -2,14 +2,19 @@ import Express from 'express';
 import axios from 'axios';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import querystring from 'querystring';
 
 import path from 'path';
 
 import webpackConfig from './webpack.config';
+import Spotify from './src/lib/Spotify';
 
 const app = Express();
 const compiler = webpack(webpackConfig);
 const port = 9000;
+const stateKey = 'spotify_auth_state';
 
 const client_id = '0856b68f7de34d5a8b885d6a3db52c5b';
 const client_secret = '38312aa6c85a461393e25b2073d3a1b6';
@@ -25,17 +30,28 @@ const getAuthToken = (code) => {
   };
   let headers = {
     'Authorization': `Basic ${authBasic}`,
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
   };
 
-  return axios({
-    method: 'POST',
-    url: spotifyPath,
+  return axios.post(spotifyPath, querystring.stringify(data), {
     headers,
-    data,
   });
 }
 
+const generateRandomString = (length) => {
+  let text = '';
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+};
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(
   Express.static(__dirname + '/public', { maxAge: 31557600000  })
 );
@@ -48,15 +64,25 @@ app.use(webpackDevMiddleware(compiler, {
   },
 }));
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
-
 app.get('/callback', async (req, res) => {
   const { code } = req.query;
-  const result = await getAuthToken();
-  console.log(result);
+  try {
+    const { data: { access_token, refresh_token } } = await getAuthToken(code);
+
+    res.cookie('access_token', access_token);
+    res.cookie('refresh_token', refresh_token);
+    res.redirect(`/#${querystring.stringify({ success: 'success' })}`);
+  } catch(e) {
+    res.redirect(`/#${querystring.stringify({ error: 'cannot get auth token' })}`);
+  }
 });
+
+app.get('/login', (req, res) => {
+  const state = generateRandomString(16);
+  res.cookie(stateKey, state);
+
+  res.redirect(Spotify.authorize());
+})
 
 app.listen(port, error => {
   if (error) {
