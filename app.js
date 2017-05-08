@@ -57,7 +57,7 @@ app.use(
 );
 
 app.use(webpackDevMiddleware(compiler, {
-  lazy: true,
+  lazy: false,
   publicPath: '/public',
   stats: {
     colors: true,
