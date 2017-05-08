@@ -10,7 +10,7 @@ const AI = async (text) => {
     };
 
     const result = await Spotify.search(trackName);
-    console.log('result', result)
+    const player = await Spotify.play();
     return { action: 'playMusic', payload: payload };
   } else if (regex.stopMusic.test(text)) {
     return { action: 'stopMusic'  };

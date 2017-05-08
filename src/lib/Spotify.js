@@ -2,7 +2,7 @@ import fetcher from './fetcher';
 import querystring from 'querystring';
 
 exports.play = (trackName) => {
-
+  return fetcher.put(`me/player/play`)
 };
 
 exports.search = (query) => {
