@@ -5,17 +5,25 @@ const AI = async (text) => {
   if (regex.playMusic.test(text)) {
     const trackName = text.replace(regex.playMusic, '').trim();
 
-    const payload = {
-      track: trackName,
-    };
-
     if (trackName) {
-      const result = await Spotify.search(trackName);
-    } else {
-      const player = await Spotify.play();
-    }
+      const payload = {
+        track: trackName,
+      };
 
-    return { action: 'playMusic', payload: payload };
+      const { data } = await Spotify.search(trackName);
+      const firstTrack = data.tracks.items[0];
+      const trackUri = firstTrack.uri;
+      const player = await Spotify.play(trackUri);
+
+      return { action: 'playMusic', payload: payload };
+    } else {
+      const payload = {
+        message: 'Playing',
+      };
+      const player = await Spotify.play();
+
+      return { action: 'playMusic', payload: payload };
+    }
   } else if (regex.stopMusic.test(text)) {
     try {
       const result = await Spotify.pause();

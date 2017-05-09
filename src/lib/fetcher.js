@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const api = 'https://api.spotify.com/v1';
 
-const fetcher = (path, method) => {
+const fetcher = (path, method, data = null) => {
   const authCode = Cookie.get('access_token');
 
   const headers = {
@@ -14,17 +14,18 @@ const fetcher = (path, method) => {
     method,
     headers,
     url: `${api}/${path}`,
+    data,
   });
 };
 
 exports.get = (path) => {
-  fetcher(path, 'GET');
+  return fetcher(path, 'GET');
 };
 
 exports.post = (path) => {
-  fetcher(path, 'POST');
+  return fetcher(path, 'POST');
 };
 
-exports.put = (path) => {
-  fetcher(path, 'PUT');
+exports.put = (path, data = null) => {
+  return fetcher(path, 'PUT', data);
 };

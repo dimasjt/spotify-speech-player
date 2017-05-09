@@ -2,7 +2,13 @@ import fetcher from './fetcher';
 import querystring from 'querystring';
 
 exports.play = (trackName) => {
-  return fetcher.put(`me/player/play`)
+  if (trackName) {
+    return fetcher.put('me/player/play', {
+      uris: [trackName],
+    });
+  } else {
+    return fetcher.put('me/player/play');
+  }
 };
 
 exports.pause = () => {
