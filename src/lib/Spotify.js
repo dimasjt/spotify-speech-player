@@ -5,6 +5,10 @@ exports.play = (trackName) => {
   return fetcher.put(`me/player/play`)
 };
 
+exports.pause = () => {
+  return fetcher.put('me/player/pause');
+};
+
 exports.search = (query) => {
   return fetcher.get(`search?type=track&q=${query}`);
 };
@@ -36,3 +40,4 @@ exports.authorize = () => {
 
   return authorizePath;
 }
+
