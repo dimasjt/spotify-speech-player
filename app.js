@@ -8,7 +8,7 @@ import querystring from 'querystring';
 
 import path from 'path';
 
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.babel';
 import Spotify from './src/lib/Spotify';
 
 const app = Express();

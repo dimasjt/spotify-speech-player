@@ -15,8 +15,8 @@ exports.pause = () => {
   return fetcher.put('me/player/pause');
 };
 
-exports.search = (query) => {
-  return fetcher.get(`search?type=track&q=${query}`);
+exports.search = async (query) => {
+  return await fetcher.get(`search?type=track&q=${query}`);
 };
 
 exports.token = (token) => {

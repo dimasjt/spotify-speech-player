@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import Cookie from 'js-cookie';
+import reactCSS from 'reactcss';
 
-import Speech from '../components/Speech';
-import SpotifyLogin from '../components/SpotifyLogin';
-import LogoutLink from '../components/LogoutLink';
+import Unlogged from '../components/Unlogged';
+import Logged from '../components/Logged';
+
+const styles = reactCSS({
+  'default': {
+    wrapper: {
+      margin: '0 auto',
+      marginTop: '100px',
+      width: '30%',
+    },
+  },
+});
 
 export default class Main extends Component {
   constructor() {
@@ -17,16 +27,18 @@ export default class Main extends Component {
     };
   }
 
-  renderLogin() {
-    return (this.state.isLogin ? <LogoutLink /> : <SpotifyLogin />);
+  renderContent() {
+    if (this.state.isLogin) {
+      return <Logged />;
+    } else {
+      return <Unlogged />;
+    }
   }
 
   render() {
     return (
-      <div>
-        <Speech />
-
-        {this.renderLogin()}
+      <div style={styles.wrapper}>
+        {this.renderContent()}
       </div>
     );
   };
