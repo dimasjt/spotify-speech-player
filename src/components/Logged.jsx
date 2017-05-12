@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, Row, Grid, Col } from 'react-bootstrap';
+
 import Spotify from '../lib/Spotify';
 
 import LogoutLink from './LogoutLink';
 import Playing from './player/Playing';
 import ListTracks from './player/ListTracks';
+import Speech from './player/Speech';
 
 export default class Logged extends Component {
   constructor() {
@@ -16,11 +18,20 @@ export default class Logged extends Component {
   }
   render() {
     return (
-      <Panel>
-        <Playing />
-        <ListTracks />
-        <LogoutLink />
-      </Panel>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <Panel>
+              <Playing />
+              <ListTracks />
+              <LogoutLink />
+            </Panel>
+          </Col>
+          <Col md={3}>
+            <Speech />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

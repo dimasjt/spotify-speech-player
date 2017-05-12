@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import AI from './../lib/ai';
+import AI from '../../lib/ai';
 
 export default class Speech extends Component {
   handleChange (event) {

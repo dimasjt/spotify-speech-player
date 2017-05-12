@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cookie from 'js-cookie';
 import reactCSS from 'reactcss';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import Unlogged from '../components/Unlogged';
 import Logged from '../components/Logged';
@@ -10,7 +11,6 @@ const styles = reactCSS({
     wrapper: {
       margin: '0 auto',
       marginTop: '100px',
-      width: '30%',
     },
   },
 });
@@ -29,17 +29,27 @@ export default class Main extends Component {
 
   renderContent() {
     if (this.state.isLogin) {
-      return <Logged {...this.props} />;
+      return (
+        <Col md={8} mdOffset={2}>
+          <Logged {...this.props} />
+        </Col>
+      );
     } else {
-      return <Unlogged {...this.props} />;
+      return (
+        <Col md={6} mdOffset={3}>
+          <Unlogged {...this.props} />
+        </Col>
+      );
     }
   }
 
   render() {
     return (
-      <div style={styles.wrapper}>
-        {this.renderContent()}
-      </div>
+      <Grid style={styles.wrapper}>
+        <Row>
+          {this.renderContent()}
+        </Row>
+      </Grid>
     );
   };
 };
