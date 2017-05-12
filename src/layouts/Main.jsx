@@ -29,9 +29,9 @@ export default class Main extends Component {
 
   renderContent() {
     if (this.state.isLogin) {
-      return <Logged />;
+      return <Logged {...this.props} />;
     } else {
-      return <Unlogged />;
+      return <Unlogged {...this.props} />;
     }
   }
 
