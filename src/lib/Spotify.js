@@ -1,10 +1,12 @@
 import fetcher from './fetcher';
 import querystring from 'querystring';
 
-exports.play = (trackName) => {
-  if (trackName) {
+exports.play = (tracks) => {
+  if (tracks.length) {
+    const trackUris = tracks.map(track => track.uri);
+
     return fetcher.put('me/player/play', {
-      uris: [trackName],
+      uris: trackUris,
     });
   } else {
     return fetcher.put('me/player/play');
@@ -15,8 +17,8 @@ exports.pause = () => {
   return fetcher.put('me/player/pause');
 };
 
-exports.search = async (query) => {
-  return await fetcher.get(`search?type=track&q=${query}`);
+exports.search = (query) => {
+  return fetcher.get(`search?type=track&q=${query}`);
 };
 
 exports.user = () => {

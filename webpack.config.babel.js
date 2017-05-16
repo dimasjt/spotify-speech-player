@@ -5,6 +5,7 @@ import WebpackNotifierPlugin from 'webpack-notifier';
 import path from 'path';
 
 module.exports = {
+  devtool: 'eval-source-map',
   entry: {
     application: [
       'babel-polyfill',

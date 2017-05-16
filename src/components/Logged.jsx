@@ -29,7 +29,7 @@ export default class Logged extends Component {
             </Panel>
           </Col>
           <Col md={3}>
-            <Speech />
+            <Speech {...this.props} />
             <Profile {...this.props} />
           </Col>
         </Row>

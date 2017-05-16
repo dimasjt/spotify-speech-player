@@ -1,22 +1,32 @@
 import regex from './regex';
 import Spotify from './Spotify';
 
-const AI = async (text) => {
+const AI = async (text, props) => {
   if (regex.playMusic.test(text)) {
     const trackName = text.replace(regex.playMusic, '').trim();
 
     if (trackName) {
-      const { data } = await Spotify.search(trackName);
+      try {
+        const { payload: tracks } = await props.searchTracks(trackName);
 
-      if (data.tracks.items.length) {
-        const firstTrack = data.tracks.items[0];
-        const trackUri = firstTrack.uri;
-        const player = await Spotify.play(trackUri);
-
-        return { action: 'playMusic', message: 'Playing', payload: firstTrack };
-      } else {
-        return { action: 'playMusic', message: 'Track not found' };
+        if (tracks.length) {
+          props.playTrack(tracks);
+        }
+      } catch (e) {
+        console.error(e);
       }
+
+      // const { data } = await Spotify.search(trackName);
+
+      // if (data.tracks.items.length) {
+      //   const firstTrack = data.tracks.items[0];
+      //   const trackUri = firstTrack.uri;
+      //   const player = await Spotify.play(trackUri);
+
+      //   return { action: 'playMusic', message: 'Playing', payload: firstTrack };
+      // } else {
+      //   return { action: 'playMusic', message: 'Track not found' };
+      // }
     } else {
       const payload = {
         message: 'Playing',
