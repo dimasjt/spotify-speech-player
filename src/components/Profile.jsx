@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Thumbnail, Button } from 'react-bootstrap';
 
+import LogoutLink from './LogoutLink';
+
 export default class Profile extends Component {
   componentWillMount() {
     this.props.getUser();
@@ -11,7 +13,7 @@ export default class Profile extends Component {
       <div>
         <Thumbnail src={user.image} alt="profile">
           <h3>{user.display_name}</h3>
-          <Button bsStyle="primary">Logout</Button>
+          <LogoutLink />
         </Thumbnail>
       </div>
     );

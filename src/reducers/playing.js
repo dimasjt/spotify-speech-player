@@ -1,11 +1,13 @@
-exports.playing = (state = {}, action) => {
+function playing(state = {}, action) {
   switch (action.type) {
     case 'PLAY_TRACK_SUCCESS':
       return {
         ...state,
-        ...action,
+        ...action.payload,
       };
     default:
       return state;
   }
 }
+
+export default playing;

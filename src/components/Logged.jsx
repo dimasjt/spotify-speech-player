@@ -3,29 +3,19 @@ import { Panel, Row, Grid, Col } from 'react-bootstrap';
 
 import Spotify from '../lib/Spotify';
 
-import LogoutLink from './LogoutLink';
 import Playing from './player/Playing';
 import ListTracks from './player/ListTracks';
 import Speech from './player/Speech';
 import Profile from './Profile';
 
 export default class Logged extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      tracks: [],
-    };
-  }
   render() {
     return (
       <Grid>
         <Row>
           <Col md={6}>
             <Panel>
-              <Playing />
-              <ListTracks />
-              <LogoutLink />
+              <ListTracks {...this.props} />
             </Panel>
           </Col>
           <Col md={3}>

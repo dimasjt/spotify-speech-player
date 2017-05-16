@@ -1,4 +1,4 @@
-exports.tracks = (state = [], action) => {
+function tracks(state = [], action) {
   switch (action.type) {
     case 'SEARCH_TRACKS_SUCCESS':
       return [
@@ -9,3 +9,5 @@ exports.tracks = (state = [], action) => {
       return state;
   }
 }
+
+export default tracks;

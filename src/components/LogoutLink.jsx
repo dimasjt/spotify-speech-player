@@ -1,4 +1,5 @@
 import React, { Component  } from 'react';
+import { Button } from 'react-bootstrap';
 import Cookie from 'js-cookie';
 
 export default class LogoutLink extends Component {
@@ -11,7 +12,7 @@ export default class LogoutLink extends Component {
 
   render() {
     return (
-      <a href="#" onClick={this.logoutHandler}>Logout</a>
+      <Button block bsStyle="danger" onClick={this.logoutHandler}>Logout</Button>
     );
   }
 };

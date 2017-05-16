@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-export default function user(state = {}, action) {
+function user(state = {}, action) {
   switch (action.type) {
     case 'GET_USER_SUCCESS':
       return {
@@ -12,3 +12,5 @@ export default function user(state = {}, action) {
       return state;
   }
 }
+
+export default user;
