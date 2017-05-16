@@ -7,6 +7,7 @@ import LogoutLink from './LogoutLink';
 import Playing from './player/Playing';
 import ListTracks from './player/ListTracks';
 import Speech from './player/Speech';
+import Profile from './Profile';
 
 export default class Logged extends Component {
   constructor() {
@@ -29,6 +30,7 @@ export default class Logged extends Component {
           </Col>
           <Col md={3}>
             <Speech />
+            <Profile {...this.props} />
           </Col>
         </Row>
       </Grid>

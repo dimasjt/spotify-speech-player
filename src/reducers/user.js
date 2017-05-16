@@ -1,19 +1,14 @@
 import { createStore } from 'redux';
 
-const initialState = {
-  id: null,
-  displayName: null,
-  email: null,
-  accessToken: null,
-  images: null,
-  product: null,
-  uri: null,
-};
-
-function user(state = {}, action) {
-  return state;
+export default function user(state = {}, action) {
+  switch (action.type) {
+    case 'GET_USER_SUCCESS':
+      return {
+        ...state,
+        ...action.payload,
+        image: action.payload.images[0].url,
+      };
+    default:
+      return state;
+  }
 }
-
-const userStore = createStore(user, initialState);
-
-export default userStore;

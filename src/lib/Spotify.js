@@ -19,6 +19,10 @@ exports.search = async (query) => {
   return await fetcher.get(`search?type=track&q=${query}`);
 };
 
+exports.user = () => {
+  return fetcher.get('me');
+};
+
 exports.token = (token) => {
   const authorizationCode = 'MDg1NmI2OGY3ZGUzNGQ1YThiODg1ZDZhM2RiNTJjNWI6MzgzMTJhYTZjODVhNDYxMzkzZTI1YjIwNzNkM2ExYjY=';
   const headers = new Headers({

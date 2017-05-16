@@ -9,6 +9,7 @@ function mapStateToProps(state) {
   return {
     tracks: state.tracks,
     playing: state.playing,
+    user: state.user,
   };
 };
 
