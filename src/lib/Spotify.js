@@ -25,6 +25,14 @@ exports.user = () => {
   return fetcher.get('me');
 };
 
+exports.next = () => {
+  return fetcher.post('me/player/next');
+}
+
+exports.previous = () => {
+  return fetcher.post('me/player/previous');
+}
+
 exports.token = (token) => {
   const authorizationCode = 'MDg1NmI2OGY3ZGUzNGQ1YThiODg1ZDZhM2RiNTJjNWI6MzgzMTJhYTZjODVhNDYxMzkzZTI1YjIwNzNkM2ExYjY=';
   const headers = new Headers({

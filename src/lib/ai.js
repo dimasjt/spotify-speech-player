@@ -16,24 +16,12 @@ const AI = async (text, props) => {
         console.error(e);
       }
 
-      // const { data } = await Spotify.search(trackName);
-
-      // if (data.tracks.items.length) {
-      //   const firstTrack = data.tracks.items[0];
-      //   const trackUri = firstTrack.uri;
-      //   const player = await Spotify.play(trackUri);
-
-      //   return { action: 'playMusic', message: 'Playing', payload: firstTrack };
-      // } else {
-      //   return { action: 'playMusic', message: 'Track not found' };
-      // }
     } else {
-      const payload = {
-        message: 'Playing',
-      };
-      const player = await Spotify.play();
-
-      return { action: 'playMusic', payload: payload };
+      try {
+        props.playTrack();
+      } catch (e) {
+        console.error(e);
+      }
     }
   } else if (regex.stopMusic.test(text)) {
     try {
@@ -42,6 +30,18 @@ const AI = async (text, props) => {
       return { action: 'stopMusic', message: 'success' };
     } catch (e) {
       return { action: 'stopMusic', message: e };
+    }
+  } else if (regex.nextMusic.test(text)) {
+    try {
+      const result = await props.nextTrack();
+    } catch (e) {
+      console.error(e);
+    }
+  } else if (regex.prevMusic.test(text)) {
+    try {
+      const result = await props.prevTrack();
+    } catch (e) {
+      console.error(e);
     }
   } else {
     console.log('I dont know');

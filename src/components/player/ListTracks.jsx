@@ -6,7 +6,7 @@ export default class ListTracks extends Component {
     const { playing } = this.props;
 
     return this.props.tracks.map((track) => {
-      let activeClass = track.id == playing.id ? 'info' : '';
+      let activeClass = track.id == playing.id ? 'success' : 'info';
 
       return (
         <ListGroupItem key={track.id} bsStyle={activeClass}>
