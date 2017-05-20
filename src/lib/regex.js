@@ -1,4 +1,4 @@
-exports.playMusic = /(p|P)lay/
-exports.stopMusic = /(stop|pause)/
-exports.nextMusic = /next/
+exports.playMusic = /(play|mainkan)/
+exports.stopMusic = /(stop|pause|berhenti)/
+exports.nextMusic = /(next|selanjutnya)/
 exports.prevMusic = /(previous|prev|back)/

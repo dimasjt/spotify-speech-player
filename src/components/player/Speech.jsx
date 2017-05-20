@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
+import reactCSS from 'reactcss';
 
 import AI from '../../lib/ai';
 
-export default class Speech extends Component {
-  handleChange = (event) => {
-    if (event.keyCode === 13) {
-      const value = event.target.value;
+const styles = reactCSS({
+  'default': {
+    hide: {
+      display: 'none',
+    },
+  },
+});
 
-      AI(value, this.props);
+export default class Speech extends Component {
+  componentDidMount() {
+    let props = this.props;
+    this.recognition = new webkitSpeechRecognition();
+    this.recognition.lang = 'id-ID';
+    this.recognition.onresult = (event) => {
+      let speechResult = event.results[0][0].transcript;
+      let speechInput = this.refs.speech;
+
+      speechInput.value = speechResult;
+      AI(speechResult, props);
     }
+  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    let value = this.refs.speech.value;
+    AI(value, this.props);
+  }
+  speech = () => {
+    this.recognition.start();
   }
   render() {
     return (
       <div>
-        <input type="text" onKeyUp={this.handleChange} />
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" ref="speech" />
+          <input type="submit" style={styles.hide} />
+        </form>
 
-        <a>Speech</a>
+        <a onClick={this.speech}>Speech</a>
       </div>
     );
   }
