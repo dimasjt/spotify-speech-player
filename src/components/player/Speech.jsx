@@ -12,8 +12,15 @@ const styles = reactCSS({
 });
 
 export default class Speech extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      onRecognition: false
+    }
+  }
   componentDidMount() {
-    let props = this.props;
+    let that = this
     this.recognition = new webkitSpeechRecognition();
     this.recognition.lang = 'id-ID';
     this.recognition.onresult = (event) => {
@@ -21,7 +28,8 @@ export default class Speech extends Component {
       let speechInput = this.refs.speech;
 
       speechInput.value = speechResult;
-      AI(speechResult, props);
+      this.setState({ onRecognition: false });
+      AI(speechResult, that.props);
     }
   }
   handleSubmit = (event) => {
@@ -31,7 +39,11 @@ export default class Speech extends Component {
     AI(value, this.props);
   }
   speech = () => {
-    this.recognition.start();
+    // handle double start recognition
+    if (!this.state.onRecognition) {
+      this.recognition.start();
+      this.setState({ onRecognition: true });
+    }
   }
   render() {
     return (
